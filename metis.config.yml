@@ -1,0 +1,22 @@
+project_token: 4d5ba8393483f7a07a2ba4ca
+name: no-show-demo
+jobs: 
+  - job_id: 20d19311-146b-4cd8-ac39-270515e6b77b
+    language: python
+    name: Train
+    entrypoint: "train.py"
+    resources: 
+      limits:
+        cpu: 1
+        memory: 1Gi
+  - job_id: b039a0b0-9ec5-40fa-b014-262e9cb04087
+    language: python
+    name: Score
+    entrypoint: "sleep 20 | score.py"
+    resources: 
+      limits:
+        cpu: 1
+        memory: 1Gi
+    dependencies: ["20d19311-146b-4cd8-ac39-270515e6b77b"]
+
+
