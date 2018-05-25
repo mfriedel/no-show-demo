@@ -12,7 +12,7 @@ jobs:
   - job_id: b039a0b0-9ec5-40fa-b014-262e9cb04087
     language: python
     name: Score
-    entrypoint: "sleep 20 | score.py"
+    entrypoint: "sleep 25 | score.py"
     resources: 
       limits:
         cpu: 1
