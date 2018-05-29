@@ -6,7 +6,7 @@ A sample Skafos project that trains a classifier to predict the likelihood of pa
 - `metis.config.yml` contains user-defined configurations for how the deployment should run.
 - `helpers/*.` contains helper code and functions to better organize the codebase.
 - `train.py` is the first job (script) that runs: loads up some historical medical appointments and trains a Random Forest Classifier.
-- 'score.py'
+- `score.py` is the second job that runs once the first has finished: loads a previously trained model and scores a batch of upcoming appointments, writing their predictions in a table accessible via REST API.
 
 
 ## The ML Pipeline
@@ -73,6 +73,8 @@ $ git remote add origin https://github.com/<user or org name>/no-show-predictor.
 $ git push
 ```
 From here on out, everytime you make some changes and want to redeploy, there is no need to do anything besides commit changes to your local repo (or on your branch) and then push/merge to master.
+
+- Once deployed, access data using the fetch functionality: `$ skafos fetch --table predictions`. This will also return a CURL command that can be incorporated in applications to retrieve data.
 
 ### What's So Special?
 Behind the scenes, Skafos is organizing and provisioning cluster resources, managing dependencies, scheduling jobs, and managing data flow. All of the tech stack and spin-up time required to deploy a production scale algorithm is effectively wiped away with a `git push`.
