@@ -10,21 +10,24 @@ A sample Skafos project that trains a classifier to predict the likelihood of pa
 ## The ML Pipeline
 Skafos allows the developer to build an end-to-end machine learning pipeline and deploy with a  `git push` to a production environment.
 
-## Build Your Own No-Show Predictor 
-You will need a few things first:
+## Build Your Own 
+Interested in building a No-Show Predictor or something similar? Great - You will need a few things first:
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Skafos Account + CLI Tool](https://docs.metismachine.io/docs/getting-started)
 
-Feel free to fork this repository and start your own project using any or all code from this example. In order to make it your own:
+Here are a few tips to get you started in no time:
 - Init a new *blank* project with the CLI --> `$ skafos init no-show-predictor`
-- Copy and/or replace files in your new project with files from this repository EXCEPT for the `metis.config.yml` file. That one is unique for each project!
-- Generate and replace your project's job ID's from the CLI or on the dashboard.
+- Feel free to fork this repository and use any or all of the python code to assist your development.
+- Details outlined in the `metis.config.yml` are unique to each developer/project. Copy and pasting the config file from this example to your new project will not work. You can use the outline, but build it based on the file generated in your new project. (The project token is unique for system authentication purposes).
+- In the config file, generate and replace your project's job ID's from the CLI or on the [dashboard](https://dashboard.metismachine.io).
 - This example relies on [AWS s3](https://aws.amazon.com/s3/) for storage of the trained model. If you have AWS secret keys, set them as environment variables from the CLI: 
 `$ skafos env AWS_ACCESS_KEY_ID --set <key>` and 
 `$ skafos env AWS_SECRET_ACCESS_KEY --set <key>`
+- Incorporate your own models, business logic, or workflow as desired!
 - Deployment options:
 
 **Without GitHub**
+This method doesn't require any github setup. Developers can deploy projects from any local branch (great for testing and development).
 ```bash
 $ git init
 $ git add .
@@ -35,6 +38,7 @@ $ git push skafos master
 ```
 
 **With GitHub**
+This method requires the developer to set up a github repository and attach the [Skafos App](https://github.com/apps/Skafos) to the project. Any changes made to the master branch will kick off a new deployment based on the config file (great for tested and trusted code that is "master-worthy").
 ```bash
 $ git init
 $ git add .
@@ -43,3 +47,9 @@ $ git remote add origin https://github.com/<user or org name>/no-show-predictor.
 $ git push
 ```
 From here on out, everytime you make some changes and want to redeploy, there is no need to do anything besides commit changes to your local repo (or on your branch) and then push/merge to master.
+
+### What's So Special?
+Behind the scenes, Skafos is organizing and provisioning cluster resources, managing dependencies, scheduling jobs, and managing data flow. All of the tech stack and spin-up time required to deploy a production scale algorithm is effectively wiped away with a `git push`.
+
+### Need Help?
+Check out the [Skafos Documentation](https://docs.metismachine.io).
