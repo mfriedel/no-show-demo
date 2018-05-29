@@ -17,7 +17,7 @@ log = get_logger('no-show-training')
 ska = Skafos()
 
 ## Grab data using the Skafos data engine
-log.info("Fetching historical appointment data over a 3 month range")
+log.info("Fetching historical appointment data over a 3 month range!")
 X, y = fetch_data(engine=ska.engine)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SIZE, random_state=42)
 
