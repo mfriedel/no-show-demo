@@ -19,6 +19,30 @@ Here are a few tips to get you started in no time:
 - Init a new *blank* project with the CLI --> `$ skafos init no-show-predictor`
 - Feel free to fork this repository and use any or all of the python code to assist your development.
 - Details outlined in the `metis.config.yml` are unique to each developer/project. Copy and pasting the config file from this example to your new project will not work. You can use the outline, but build it based on the file generated in your new project. (The project token is unique for system authentication purposes).
+Example project config:
+```yml
+project_token: <automatically-generated-by-CLI>
+name: no-show-demo
+jobs: 
+  - job_id: <generate-a-new-one>
+    language: python
+    name: Train
+    entrypoint: "train.py"
+    schedule: "0 9 * * *"
+    resources: 
+      limits:
+        cpu: 1
+        memory: 1Gi
+  - job_id: <generate-a-new-one>
+    language: python
+    name: Score
+    entrypoint: "sleep 25 | score.py"
+    resources: 
+      limits:
+        cpu: 1
+        memory: 1Gi
+    dependencies: [<first-job-id>]
+```
 - In the config file, generate and replace your project's job ID's from the CLI or on the [dashboard](https://dashboard.metismachine.io).
 - This example relies on [AWS s3](https://aws.amazon.com/s3/) for storage of the trained model. If you have AWS secret keys, set them as environment variables from the CLI: 
 `$ skafos env AWS_ACCESS_KEY_ID --set <key>` and 
