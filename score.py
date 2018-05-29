@@ -44,7 +44,7 @@ print(predictions[:3], flush=True)
 
 ## Write predictions to cassandra table - accessible via REST API
 log.info("Writing batches of predictions out to the database")
-for batch in batches(predictions, 1000):
+for batch in batches(predictions, 200):
   res = ska.engine.save(PREDICTION_SCHEMA, batch).result()
   log.debug(res)
 
