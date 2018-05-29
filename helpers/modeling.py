@@ -24,8 +24,8 @@ def load_model(model_id, name):
 
 def load_latest_model(engine):
   """Retrieve the most recent noshow model and load from s3 Storage"""
-  engine.create_view("m", {"table": "noshow_models"}, DataSourceType.Cassandra).result()
-  record = engine.query("SELECT * FROM m ORDER BY date_created DESC LIMIT 1").result().get('data')
+  engine.create_view("models", {"table": "noshow_models"}, DataSourceType.Cassandra).result()
+  record = engine.query("SELECT * FROM models ORDER BY date_created DESC LIMIT 1").result().get('data')
   if record is not None:
     latest_model = record[0]
     return load_model(latest_model["model_id"], latest_model["name"])
@@ -57,4 +57,3 @@ def save_model(model, model_id, acc, model_type="RandomForestClassifier", name="
   return model_record(
       model_id=model_id, acc=acc, model_type=model_type, name=name
   )
-
