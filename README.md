@@ -1,11 +1,13 @@
 # No-Show Predictor
-A sample Skafos project that trains a classifier to predict the likelihood of patients showing up to scheduled appointments in the coming week. All data was acquired from this Kaggle competition.
+A sample Skafos project that trains a classifier to predict the likelihood of patients showing up to scheduled appointments in the coming week. The inspiration for this example came from a [Kaggle Competition](https://www.kaggle.com/joniarroba/noshowappointments). All data used was sourced from their site!
 
 ## Project Contents
 - `requirements.txt` contains basic python dependencies.
 - `metis.config.yml` contains user-defined configurations for how the deployment should run.
 - `helpers/*.` contains helper code and functions to better organize the codebase.
-- `train.py` and `score.py` are the two jobs (scripts) that will run according to the details outlined in the config file.
+- `train.py` is the first job (script) that runs: loads up some historical medical appointments and trains a Random Forest Classifier.
+- 'score.py'
+
 
 ## The ML Pipeline
 Skafos allows the developer to build an end-to-end machine learning pipeline and deploy with a  `git push` to a production environment.
@@ -44,13 +46,13 @@ jobs:
     dependencies: [<first-job-id>]
 ```
 - In the config file, generate and replace your project's job ID's from the CLI or on the [dashboard](https://dashboard.metismachine.io).
-- This example relies on [AWS s3](https://aws.amazon.com/s3/) for storage of the trained model. If you have AWS secret keys, set them as environment variables from the CLI: 
+- This example relies on [AWS S3](https://aws.amazon.com/s3/) for storage of the trained model. If you have AWS secret keys, set them as environment variables from the CLI: 
 `$ skafos env AWS_ACCESS_KEY_ID --set <key>` and 
 `$ skafos env AWS_SECRET_ACCESS_KEY --set <key>`
 - Incorporate your own models, business logic, or workflow as desired!
 - Deployment options:
 
-**Without GitHub**
+**Without GitHub**:
 This method doesn't require any github setup. Developers can deploy projects from any local branch (great for testing and development).
 ```bash
 $ git init
@@ -61,7 +63,7 @@ $ skafos remote info
 $ git push skafos master
 ```
 
-**With GitHub**
+**With GitHub**:
 This method requires the developer to set up a github repository and attach the [Skafos App](https://github.com/apps/Skafos) to the project. Any changes made to the master branch will kick off a new deployment based on the config file (great for tested and trusted code that is "master-worthy").
 ```bash
 $ git init
