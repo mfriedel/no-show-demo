@@ -37,8 +37,10 @@ log.info("Scoring all appointments")
 df['no_show_likelihood'] = [p[1] for p in latest_model.predict_proba(X)]
 
 ## Create prediction records
-predictions = df[OUTPUT].to_dict(orient='records')
-
+predictions = df[OUTPUT]
+predictions['appointment_day'] = predictions['appointment_day'].apply(lambda x: str(x)[:10])
+predictions = predictions.to_dict(orient='records')
+print(predictions[:3], flush=True)
 
 ## Write predictions to cassandra table - accessible via REST API
 log.info("Writing batches of predictions out to the database")
