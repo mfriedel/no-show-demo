@@ -9,7 +9,7 @@ from skafossdk import DataSourceType, Skafos
 warnings.filterwarnings("ignore")
 
 
-## Load the most recent noshow model that has been pre-trained
+## Load the most recent noshow model that has been pre-trained and stored on s3
 start = time.time()
 log = get_logger('no-show-scoring')
 ska = Skafos()
