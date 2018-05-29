@@ -37,7 +37,7 @@ log.info("Scoring all appointments")
 df['no_show_likelihood'] = [p[1] for p in latest_model.predict_proba(X)]
 
 ## Create prediction records
-predictions = df[OUTPUT]
+predictions = df[OUTPUT].to_dict(orient='records')
 
 
 ## Write predictions to cassandra table - accessible via REST API
