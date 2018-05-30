@@ -37,7 +37,7 @@ def model_record(model_id, acc, model_type, name):
   """Generate a model version record from model info"""
   return {
       "date_created": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]),
-      "model_id": str(model_id),
+      "model_id": model_id,
       "name": name,
       "status": "production" if acc > ACC_THRESHOLD else "weak",
       "model_type": model_type,
