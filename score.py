@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 start = time.time()
 log = get_logger('no-show-scoring')
 ska = Skafos()
-log.info("Loading latest pre-trained no-show predictor")
+log.info("Loading latest pre-trained no-show predictor!")
 latest_model = load_latest_model(engine=ska.engine)
 
 
