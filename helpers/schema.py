@@ -26,8 +26,8 @@ PREDICTION_SCHEMA = {
     "order_by": ["no_show_likelihood desc"]
   },
   "columns": {
-    "appointment_id": "string",
-    "patient_id": "string",
+    "appointment_id": "text",
+    "patient_id": "text",
     "appointment_day": "date",
     "no_show_likelihood": "float"
   }
