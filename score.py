@@ -42,11 +42,16 @@ predictions['appointment_day'] = predictions['appointment_day'].apply(lambda x: 
 predictions = predictions.to_dict(orient='records')
 print(predictions[:3], flush=True)
 
+# Output to CSV for inspection
+pd_predspd.DataFrame(predictions)
+
 ## Write predictions to cassandra table - accessible via REST API
 log.info("Writing batches of predictions out to the database")
 for batch in batches(predictions, 200):
   res = ska.engine.save(PREDICTION_SCHEMA, batch).result()
   log.debug(res)
+
+
 
 finish = time.time()
 log.info(f"Done - loaded and scored appointments in {finish-start} seconds")

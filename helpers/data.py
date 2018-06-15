@@ -2,7 +2,13 @@ import sys
 import pandas as pd
 from skafossdk import DataSourceType
 from .schema import FEATURES, LABEL
+from s3fs.core import S3FileSystem
 
+# CONSTANTS
+S3_BUCKET = "skafos.demo.healthcare"
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+ACC_THRESHOLD = float(os.getenv("ACC_THRESHOLD", 0.6))
 
 def normalize_gender(df):
   X = df.copy()
@@ -10,15 +16,27 @@ def normalize_gender(df):
   return X
 
 
-def fetch_data(engine):
+def fetch_data(engine, location):
   """Use the Skafos data engine to pull in historic appointment data."""
-  res = engine.create_view(
+
+  if location == "S3":
+
+    s3 = S3FileSystem(anon=False)
+    key = f"s3://{S3_BUCKET}/training_data/dataset1.csv"
+    bucket = f'{S3_BUCKET}'
+
+    fetched_data = make_dataframe(data=pd.read_csv(s3.open('{}/{}'.format(bucket, key),
+                                                           mode='rb')))
+  else:
+    res = engine.create_view(
       'appt',
       {'keyspace': 'no_shows', 'table': 'appointments'},
       DataSourceType.Cassandra
-  ).result()
-  query = 'SELECT * FROM appt'
-  return make_dataframe(engine.query(query).result().get('data'))
+    ).result()
+    query = 'SELECT * FROM appt'
+    fetched_data = make_dataframe(engine.query(query).result().get('data'))
+
+  return fetched_data
 
 
 def make_dataframe(data):
