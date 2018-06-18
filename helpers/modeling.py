@@ -22,9 +22,9 @@ def load_model(model_id, name):
     return pickle.loads(f.read())
 
 
-def load_latest_model(engine):
+def load_latest_model(engine, keyspace):
   """Retrieve the most recent noshow model and load from s3 Storage"""
-  engine.create_view("models", {"table": "noshow_models"}, DataSourceType.Cassandra).result()
+  engine.create_view("models", {'keyspace':f'{keyspace}', "table": "noshow_models"}, DataSourceType.Cassandra).result()
   record = engine.query("SELECT * FROM models ORDER BY date_created DESC LIMIT 1").result().get('data')
   if record is not None:
     latest_model = record[0]
