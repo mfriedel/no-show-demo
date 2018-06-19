@@ -1,4 +1,4 @@
-# No-Show Predictor - MF DEMO2
+# No-Show Predictor - MF DEMO3
 A sample Skafos project that trains a classifier to predict the likelihood of patients showing up to scheduled appointments in the coming week. The inspiration for this example came from a [Kaggle Competition](https://www.kaggle.com/joniarroba/noshowappointments). All data used was sourced from their site!
 
 ## Project Contents
