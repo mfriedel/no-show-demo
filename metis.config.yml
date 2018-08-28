@@ -1,6 +1,8 @@
 project_token: 4d5ba8393483f7a07a2ba4ca
 name: no-show-demo
 jobs: 
+
+# Train model
   - job_id: 20d19311-146b-4cd8-ac39-270515e6b77b
     language: python
     name: Train
@@ -9,6 +11,8 @@ jobs:
       limits:
         cpu: 1
         memory: 1Gi
+        
+# Score model
   - job_id: b039a0b0-9ec5-40fa-b014-262e9cb04087
     language: python
     name: Score
